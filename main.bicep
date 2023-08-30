@@ -32,6 +32,17 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   properties: {}
 }
 
+var funcStorageAccountName = 'stfunc${env}${desc}'
+
+resource funcStorageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {
+  name: funcStorageAccountName
+  location: location
+  sku: {
+    name: storageSKU
+  }
+  kind: 'Storage'
+}
+
 param backupAccountName string = 'bk${env}${desc}'
 
 resource backupStorageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {
@@ -76,6 +87,14 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
       use32BitWorkerProcess: false
       minTlsVersion: '1.2'
       appSettings: [
+          {
+            name: 'AzureWebJobsStorage'
+            value: 'DefaultEndpointsProtocol=https;AccountName=${funcStorageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${funcStorageAccount.listKeys().keys[0].value}'
+          }
+          {
+            name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+            value: 'DefaultEndpointsProtocol=https;AccountName=${funcStorageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${funcStorageAccount.listKeys().keys[0].value}'
+          }
           {
             name: 'FUNCTIONS_EXTENSION_VERSION'
             value: '~4'
