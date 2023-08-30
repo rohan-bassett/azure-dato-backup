@@ -114,7 +114,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
           }
           {
             name: 'BLOB_STORAGE_URL'
-            value: 'https://${backupStorageAccount.name}.blob.core.windows.net'
+            value: 'https://${backupStorageAccount.name}.blob.${environment().suffixes.storage}'
           }
         ]
     }
