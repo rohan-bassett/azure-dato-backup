@@ -8,8 +8,6 @@ import { pipeline } from 'node:stream/promises';
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
   context.log('Hello world!');
 
-  context.log(process.env.DATO_API_TOKEN);
-
   const client = new SiteClient(process.env.DATO_API_TOKEN);
 
   context.log('Downloading records...');
