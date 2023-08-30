@@ -1,7 +1,3 @@
-@minLength(3)
-@maxLength(11)
-param storagePrefix string = 'stg'
-
 param appName string = 'ract'
 
 param env string = 'dev'
