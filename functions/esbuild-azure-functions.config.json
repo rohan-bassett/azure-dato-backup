@@ -1,0 +1,11 @@
+{
+	"project": ".",
+	"esbuildOptions": {
+		"outdir": "dist",
+		"format": "cjs",
+		"splitting": false,
+		"outExtension": {
+			".js": ".js"
+		}
+	}
+}
