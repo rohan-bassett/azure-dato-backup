@@ -6,9 +6,13 @@ import path from 'node:path';
 import { pipeline } from 'node:stream/promises';
 
 const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): Promise<void> => {
+  context.log('Hello world!');
+
+  context.log(process.env.DATO_API_TOKEN);
+
   const client = new SiteClient(process.env.DATO_API_TOKEN);
 
-  console.log('Downloading records...');
+  context.log('Downloading records...');
 
   let records = {};
 
@@ -44,7 +48,7 @@ const httpTrigger: AzureFunction = async (context: Context, req: HttpRequest): P
       //   });
     });
 
-  console.log('Done!');
+  context.log('Done!');
 
   context.res = {
     headers: {
