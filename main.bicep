@@ -18,7 +18,6 @@ var functionWorkerRuntime = 'node'
 param functionAppName string = '${appName}-${region}-${env}-func-${desc}'
 param hostingPlanName string = '${appName}-${region}-${env}-plan-${desc}'
 
-
 resource functionAppManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' = {
   name: '${appName}-${region}-${env}-funcapp'
   location: location
@@ -34,15 +33,6 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2022-03-01' = {
 }
 
 param storageAccountName string = 'st${env}${desc}'
-
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {
-  name: storageAccountName
-  location: location
-  sku: {
-    name: storageSKU
-  }
-  kind: 'Storage'
-}
 
 param backupAccountName string = 'bk${env}${desc}'
 
