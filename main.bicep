@@ -96,6 +96,10 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
             value: 'DefaultEndpointsProtocol=https;AccountName=${funcStorageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${funcStorageAccount.listKeys().keys[0].value}'
           }
           {
+            name: 'WEBSITE_CONTENTSHARE'
+            value: toLower(functionAppName)
+          }
+          {
             name: 'FUNCTIONS_EXTENSION_VERSION'
             value: '~4'
           }
